@@ -1,0 +1,157 @@
+// ==UserScript==
+// @name         ProCineHub Auto-Clicker
+// @namespace    http://tampermonkey.net/
+// @version      1.0
+// @description  Automatically clicks VERIFY and CONTINUE buttons on ProCineHub
+// @author       You
+// @match        https://procinehub.com/*
+// @match        https://*.procinehub.com/*
+// @grant        none
+// @run-at       document-start
+// ==/UserScript==
+
+(function() {
+    'use strict';
+    
+    console.log('ProCineHub Auto-Clicker loaded');
+    
+    // Track clicked buttons for each step
+    let clickedButtons = new Set();
+    let currentStep = null;
+    
+    // Function to get current step
+    function getCurrentStep() {
+        // Look for step indicators like "Step 1 of 3", "Step 2 of 3", etc.
+        const stepTexts = document.querySelectorAll('*');
+        for (let element of stepTexts) {
+            const text = element.textContent || element.innerText;
+            if (text && text.match(/Step \d+ of \d+/i)) {
+                return text.trim();
+            }
+        }
+        return null;
+    }
+    
+    // Track pending clicks to avoid duplicate delays
+    let pendingClicks = new Set();
+    
+    // Function to click a button if it exists and is visible
+    function clickButton(selector, buttonName) {
+        const button = document.querySelector(selector);
+        if (button && button.offsetParent !== null && !button.disabled) {
+            const step = getCurrentStep();
+            const buttonKey = `${step}-${selector}`;
+            
+            // Check if we've already clicked this button for this step
+            if (clickedButtons.has(buttonKey)) {
+                console.log(`Button ${buttonName} already clicked for ${step || 'current step'}`);
+                return false;
+            }
+            
+            // Check if we already have a pending click for this button
+            if (pendingClicks.has(buttonKey)) {
+                console.log(`Button ${buttonName} click already pending for ${step || 'current step'}`);
+                return false;
+            }
+            
+            // Mark as pending and schedule click after 2 seconds
+            pendingClicks.add(buttonKey);
+            console.log(`Button ${buttonName} detected for ${step || 'current step'} - clicking in 2 seconds...`);
+            
+            setTimeout(() => {
+                // Double-check button still exists and is clickable
+                const buttonCheck = document.querySelector(selector);
+                if (buttonCheck && buttonCheck.offsetParent !== null && !buttonCheck.disabled) {
+                    console.log(`Clicking ${buttonName} button for ${step || 'current step'}`);
+                    buttonCheck.click();
+                    clickedButtons.add(buttonKey);
+                } else {
+                    console.log(`Button ${buttonName} no longer available for clicking`);
+                }
+                // Remove from pending clicks
+                pendingClicks.delete(buttonKey);
+            }, 2000);
+            
+            return true;
+        }
+        return false;
+    }
+    
+    // Function to check and click buttons
+    function checkAndClickButtons() {
+        const step = getCurrentStep();
+        
+        // If step changed, we can potentially click buttons again
+        if (step !== currentStep) {
+            currentStep = step;
+            console.log(`Step changed to: ${step || 'unknown'}`);
+        }
+        
+        // Try to click VERIFY button first
+        if (clickButton('#VerifyBtn', 'VERIFY')) {
+            return;
+        }
+        
+        // Then try CONTINUE button
+        if (clickButton('#NextBtn', 'CONTINUE')) {
+            return;
+        }
+        
+        // Alternative selectors in case IDs change
+        if (clickButton('button.VerifyBtn', 'VERIFY (by class)')) {
+            return;
+        }
+        
+        if (clickButton('button.NextBtn', 'CONTINUE (by class)')) {
+            return;
+        }
+    }
+    
+    // Function to start monitoring
+    function startMonitoring() {
+        console.log('Starting button monitoring...');
+        
+        // Check immediately
+        checkAndClickButtons();
+        
+        // Set up periodic checking
+        const intervalId = setInterval(checkAndClickButtons, 1000);
+        
+        // Set up mutation observer for dynamic content
+        const observer = new MutationObserver(function(mutations) {
+            let shouldCheck = false;
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'childList' || mutation.type === 'attributes') {
+                    shouldCheck = true;
+                }
+            });
+            
+            if (shouldCheck) {
+                setTimeout(checkAndClickButtons, 100);
+            }
+        });
+        
+        // Start observing
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['style', 'class', 'disabled']
+        });
+        
+        console.log('Monitoring started - buttons will be clicked automatically');
+    }
+    
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', startMonitoring);
+    } else {
+        startMonitoring();
+    }
+    
+    // Also try when window loads (for additional safety)
+    window.addEventListener('load', function() {
+        setTimeout(checkAndClickButtons, 500);
+    });
+    
+})();
