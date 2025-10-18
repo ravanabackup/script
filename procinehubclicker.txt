@@ -1,11 +1,13 @@
 // ==UserScript==
-// @name         ProCineHub Auto-Clicker
+// @name         Gplink Auto-Clicker
 // @namespace    http://tampermonkey.net/
 // @version      1.0
 // @description  Automatically clicks VERIFY and CONTINUE buttons on ProCineHub
 // @author       You
 // @match        https://procinehub.com/*
 // @match        https://*.procinehub.com/*
+// @match        https://examsrush.com/*
+// @match        https://*.examsrush.com/*
 // @grant        none
 // @run-at       document-start
 // ==/UserScript==
@@ -13,7 +15,7 @@
 (function() {
     'use strict';
     
-    console.log('ProCineHub Auto-Clicker loaded');
+    console.log('Gplink Auto-Clicker loaded');
     
     // Track clicked buttons for each step
     let clickedButtons = new Set();
