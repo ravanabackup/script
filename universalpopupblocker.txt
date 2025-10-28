@@ -1,0 +1,66 @@
+// ==UserScript==
+// @name         Universal Popup & Modal Blocker
+// @namespace    popup-blocker-global
+// @version      1.0
+// @description  Automatically removes annoying popups, modals, and overlays from any website
+// @author       Ravana
+// @match        *://*/*
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    // List of known popup / modal selectors (add more if needed)
+    const selectors = [
+        // Your provided selectors
+        '#loginModal > .modal-dialog.modal-dialog-centered > .modal-content.background-dark-primary.shadow-sm.rounded-4.p-4',
+        '#loginModal',
+        '.modal-backdrop.show',
+        '.adb-popup.adb-align-center',
+        '#AdbModel',
+
+        // Generic common popup/modal patterns
+        '.popup',
+        '.modal',
+        '.overlay',
+        '.backdrop',
+        '.subscribe-modal',
+        '.newsletter-popup',
+        '.adblock-modal',
+        '.lightbox',
+        '.dialog',
+        '.modal-open',
+        '.cookie-consent',
+        '[id*="popup"]',
+        '[class*="popup"]',
+        '[id*="modal"]',
+        '[class*="modal"]',
+        '[id*="overlay"]',
+        '[class*="overlay"]',
+        '[id*="subscribe"]',
+        '[class*="subscribe"]'
+    ];
+
+    function removePopups() {
+        selectors.forEach(sel => {
+            document.querySelectorAll(sel).forEach(el => {
+                el.remove();
+            });
+        });
+
+        // Also unlock scrolling if blocked
+        document.body.style.overflow = 'auto';
+        document.documentElement.style.overflow = 'auto';
+    }
+
+    // Initial cleanup
+    removePopups();
+
+    // Watch for dynamically added popups
+    const observer = new MutationObserver(() => removePopups());
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    // Re-run periodically (backup in case mutation misses)
+    setInterval(removePopups, 2000);
+})();
