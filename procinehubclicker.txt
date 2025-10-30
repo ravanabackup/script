@@ -8,6 +8,12 @@
 // @match        https://*.procinehub.com/*
 // @match        https://examsrush.com/*
 // @match        https://*.examsrush.com/*
+// @match        https://techpnk.com/*
+// @match        https://*.techpnk.com/*
+// @match        https://powergam.online/*
+// @match        https://*.powergam.online/*
+// @match        https://sankarmusic.in/*
+// @match        https://*.sankarmusic.in/* 
 // @grant        none
 // @run-at       document-start
 // ==/UserScript==
