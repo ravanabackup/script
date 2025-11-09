@@ -14,6 +14,16 @@
 // @match        https://*.powergam.online/*
 // @match        https://sankarmusic.in/*
 // @match        https://*.sankarmusic.in/* 
+// @match        https://general24news.in/*
+// @match        https://*.general24news.in/*
+// @match        https://variedvortex.com/*
+// @match        https://*.variedvortex.com/*
+// @match        https://iqmastered.com/*
+// @match        https://*.iqmastered.com/* 
+// @match        https://pubgmobile.cloud/*
+// @match        https://*.pubgmobile.cloud/*
+// @match        https://htmlgames.website/*
+// @match        https://*.htmlgames.website/*
 // @grant        none
 // @run-at       document-start
 // ==/UserScript==
