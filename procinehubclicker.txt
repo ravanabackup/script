@@ -24,6 +24,8 @@
 // @match        https://*.pubgmobile.cloud/*
 // @match        https://htmlgames.website/*
 // @match        https://*.htmlgames.website/*
+// @match        https://mahabhulekh.onl/*
+// @match        https://*.mahabhulekh.onl/*
 // @grant        none
 // @run-at       document-start
 // ==/UserScript==
