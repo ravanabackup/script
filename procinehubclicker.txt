@@ -26,6 +26,8 @@
 // @match        https://*.htmlgames.website/*
 // @match        https://mahabhulekh.onl/*
 // @match        https://*.mahabhulekh.onl/*
+// @match        https://sarkaricarer.com/
+// @match        https://*.sarkaricarer.com/*
 // @grant        none
 // @run-at       document-start
 // ==/UserScript==
