@@ -28,6 +28,10 @@
 // @match        https://*.mahabhulekh.onl/*
 // @match        https://sarkaricarer.com/
 // @match        https://*.sarkaricarer.com/*
+// @match        https://jobjankari.online/*
+// @match        https://*.jobjankari.online/*
+// @match        https://rozgarguide.com/*
+// @match        https://*.rozgarguide.com/*
 // @grant        none
 // @run-at       document-start
 // ==/UserScript==
