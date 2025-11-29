@@ -32,6 +32,14 @@
 // @match        https://*.jobjankari.online/*
 // @match        https://rozgarguide.com/*
 // @match        https://*.rozgarguide.com/*
+// @match        https://alexandriashoe.com/*
+// @match        https://*.alexandriashoe.com/*
+// @match        https://merainsurance.xyz/*
+// @match        https://*.merainsurance.xyz/*
+// @match        https://abresult.in/
+// @match        https://*.abresult.in/*
+// @match        https://timetazza.com/*
+// @match        https://*.timetazza.com/*
 // @grant        none
 // @run-at       document-start
 // ==/UserScript==
