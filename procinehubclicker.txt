@@ -40,6 +40,8 @@
 // @match        https://*.abresult.in/*
 // @match        https://timetazza.com/*
 // @match        https://*.timetazza.com/*
+// @match        https://jobernnews.com/*
+// @match        https://*.jobernnews.com/*
 // @grant        none
 // @run-at       document-start
 // ==/UserScript==
