@@ -44,6 +44,8 @@
 // @match        https://*.jobernnews.com/*
 // @match        https://oreopix.com/*
 // @match        https://*.oreopix.com/*
+// @match        https://uvsjobz.in/*
+// @match        https://*.uvsjobz.in/*
 // @grant        none
 // @run-at       document-start
 // ==/UserScript==
