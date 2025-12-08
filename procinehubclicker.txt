@@ -46,6 +46,8 @@
 // @match        https://*.oreopix.com/*
 // @match        https://uvsjobz.in/*
 // @match        https://*.uvsjobz.in/*
+// @match        https://timesnewss.com/*
+// @match        https://*.timesnewss.com/*
 // @grant        none
 // @run-at       document-start
 // ==/UserScript==
