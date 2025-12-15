@@ -50,6 +50,8 @@
 // @match        https://*.timesnewss.com/*
 // @match        https://stpaulsschool.org.in/*
 // @match        https://*.stpaulsschool.org.in/*
+// @match        https://sanadegreecollege.in/*
+// @match        https://*.sanadegreecollege.in/*
 // @grant        none
 // @run-at       document-start
 // ==/UserScript==
