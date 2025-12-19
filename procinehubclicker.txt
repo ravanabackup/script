@@ -52,6 +52,8 @@
 // @match        https://*.stpaulsschool.org.in/*
 // @match        https://sanadegreecollege.in/*
 // @match        https://*.sanadegreecollege.in/*
+// @match        https://blacksattaking786.com/*
+// @match        https://*.blacksattaking786.com/*
 // @grant        none
 // @run-at       document-start
 // ==/UserScript==
