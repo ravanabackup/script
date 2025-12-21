@@ -54,6 +54,8 @@
 // @match        https://*.sanadegreecollege.in/*
 // @match        https://blacksattaking786.com/*
 // @match        https://*.blacksattaking786.com/*
+// @match        https://sparktrail.site/*
+// @match        https://*.sparktrail.site/*
 // @grant        none
 // @run-at       document-start
 // ==/UserScript==
