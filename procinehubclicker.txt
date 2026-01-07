@@ -60,6 +60,8 @@
 // @match        https://*.mfulecollegewarud.org/*
 // @match        https://ajazijobs.in/*
 // @match        https://*.ajazijobs.in/*
+// @match        https://qrixpe.com/*
+// @match        https://*.qrixpe.com/*
 // @grant        none
 // @run-at       document-start
 // ==/UserScript==
