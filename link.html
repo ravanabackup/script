@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>@match Generator + Merger</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background: #f4f4f4;
+    }
+    .container {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 600px;
+      margin: auto;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    input, button, textarea {
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      font-size: 16px;
+    }
+    textarea {
+      height: 300px;
+      resize: vertical;
+      white-space: pre;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>@match Generator + Merger</h2>
+    <input type="text" id="urlInput" placeholder="Enter URL (e.g. https://qrixpe.com/)">
+    <button onclick="generateMatch()">Generate</button>
+    <button onclick="mergeScript()">Merge</button>
+    <textarea id="output" readonly></textarea>
+    <button onclick="copyOutput()">Copy</button>
+    <button onclick="openEditPage()">Open Edit Page</button>
+  </div>
+
+  <script>
+    function generateMatch() {
+      const url = document.getElementById("urlInput").value.trim();
+      try {
+        const parsed = new URL(url);
+        const domain = parsed.hostname;
+        const protocol = parsed.protocol;
+
+        const output = `// @match        ${protocol}//${domain}/*\n// @match        ${protocol}//*.${domain}/*`;
+        document.getElementById("output").value = output;
+      } catch (e) {
+        alert("Please enter a valid URL (e.g. https://example.com/)");
+      }
+    }
+
+    async function mergeScript() {
+      const outputBox = document.getElementById("output");
+      try {
+        const response = await fetch("https://raw.githubusercontent.com/ravanabackup/script/refs/heads/main/procinehubclicker.txt");
+        if (!response.ok) throw new Error("Failed to fetch remote script");
+        const text = await response.text();
+
+        // Insert fetched content above "// @grant        none"
+        const grantIndex = text.indexOf("// @grant        none");
+        if (grantIndex !== -1) {
+          const beforeGrant = text.substring(0, grantIndex);
+          const afterGrant = text.substring(grantIndex);
+          outputBox.value = beforeGrant + outputBox.value + "\n" + afterGrant;
+        } else {
+          outputBox.value = text + "\n" + outputBox.value;
+        }
+      } catch (err) {
+        alert("Error merging script: " + err.message);
+      }
+    }
+
+    function copyOutput() {
+      const outputBox = document.getElementById("output");
+      outputBox.select();
+      document.execCommand("copy");
+      alert("Copied to clipboard!");
+    }
+
+    function openEditPage() {
+      window.open("https://github.com/ravanabackup/script/edit/main/procinehubclicker.txt", "_blank");
+    }
+  </script>
+</body>
+</html>
